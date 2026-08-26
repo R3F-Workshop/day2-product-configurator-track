@@ -107,10 +107,12 @@ type GLTFResult = GLTF & {
   };
 };
 
+const base = import.meta.env.BASE_URL;
+
 export function Car(props: JSX.IntrinsicElements["group"]) {
   const bodyColorHex = useApp((state) => state.bodyColor.hex);
   const { nodes, materials } = useGLTF(
-    "/apple_watch_ultra_2.glb",
+    base + "apple_watch_ultra_2.glb",
   ) as unknown as GLTFResult;
   return (
     <group {...props} dispose={null} name="main">
@@ -460,4 +462,4 @@ export function Car(props: JSX.IntrinsicElements["group"]) {
   );
 }
 
-useGLTF.preload("/apple_watch_ultra_2.glb");
+useGLTF.preload(base + "apple_watch_ultra_2.glb");
