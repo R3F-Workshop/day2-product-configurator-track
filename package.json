@@ -1,5 +1,6 @@
 {
-  "name": "day2",
+  "name": "day2-product-configurator-track",
+  "description": "Poimandres Workshop Day 2 (September 9th 2026) - Product Configurator track by Faraz Shaikh",
   "private": true,
   "version": "0.0.0",
   "type": "module",
