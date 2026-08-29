@@ -2,7 +2,7 @@ import {
   BODY_COLOR_CONFIG,
   useApp,
   type BodyColorName,
-} from "../Shared/AppState";
+} from "../State/AppState";
 import { Logo } from "./Logo";
 
 export function UI() {
@@ -13,12 +13,12 @@ export function UI() {
   const colorNames = Object.keys(BODY_COLOR_CONFIG) as BodyColorName[];
 
   return (
-    <>
+    <div className="ui-disable-pointer-events-except-inputs">
       {/* <CameraPresetSwitcher /> */}
 
       <div className="pointer-events-none fixed inset-x-0 top-0 z-10">
         <div className="mx-auto w-full max-w-6xl px-4 py-8 md:px-6">
-          <div className="pointer-events-auto flex w-fit items-center gap-3">
+          <div className="flex w-fit items-center gap-3">
             <Logo color="#f4f4f5" className="h-8 w-8 md:h-10 md:w-10" />
             <div className="flex flex-col">
               <p className="text-xl font-medium text-zinc-100 md:text-base">
@@ -46,7 +46,7 @@ export function UI() {
       </div>
 
       <div className="pointer-events-none fixed inset-x-0 bottom-0 z-10">
-        <div className="pointer-events-auto w-full bg-transparent">
+        <div className="w-full bg-transparent">
           <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-4 py-5 sm:py-6 md:flex-row md:items-center md:justify-between md:px-6 md:py-8">
             <div className="min-w-0 flex-1">
               <p className="mb-2 text-sm font-semibold uppercase tracking-[0.14em] text-zinc-200 md:text-base">
@@ -119,6 +119,6 @@ export function UI() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

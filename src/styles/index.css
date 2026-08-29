@@ -25,3 +25,17 @@ canvas {
   margin: 0;
   background-color: #121212;
 }
+
+.ui-disable-pointer-events-except-inputs,
+.ui-disable-pointer-events-except-inputs * {
+  pointer-events: none;
+}
+
+.ui-disable-pointer-events-except-inputs input,
+.ui-disable-pointer-events-except-inputs input[type="color"],
+.ui-disable-pointer-events-except-inputs select,
+.ui-disable-pointer-events-except-inputs textarea,
+.ui-disable-pointer-events-except-inputs a,
+.ui-disable-pointer-events-except-inputs button {
+  pointer-events: auto;
+}

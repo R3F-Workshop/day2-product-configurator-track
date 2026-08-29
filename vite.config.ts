@@ -7,4 +7,7 @@ import PackageJson from "./package.json" with { type: "json" };
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   base: `/${PackageJson.name}/`,
+  server: {
+    allowedHosts: true,
+  },
 });

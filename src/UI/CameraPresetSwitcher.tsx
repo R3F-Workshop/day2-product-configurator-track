@@ -3,7 +3,7 @@ import {
   CAMERA_PRESET_CONFIG,
   useApp,
   type CameraPresetName,
-} from "../Shared/AppState";
+} from "../State/AppState";
 
 interface IconProps extends SVGProps<SVGSVGElement> {
   className?: string;

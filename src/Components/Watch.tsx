@@ -10,7 +10,7 @@ import { useGLTF } from "@react-three/drei";
 import type { JSX } from "react/jsx-dev-runtime";
 import * as THREE from "three";
 import type { GLTF } from "three/examples/jsm/Addons.js";
-import { useApp } from "./AppState";
+import { useApp } from "../State/AppState";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -109,7 +109,7 @@ type GLTFResult = GLTF & {
 
 const base = import.meta.env.BASE_URL;
 
-export function Car(props: JSX.IntrinsicElements["group"]) {
+export function Watch(props: JSX.IntrinsicElements["group"]) {
   const bodyColorHex = useApp((state) => state.bodyColor.hex);
   const { nodes, materials } = useGLTF(
     base + "apple_watch_ultra_2.glb",
