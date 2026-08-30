@@ -1,8 +1,7 @@
 import { useRenderPipeline } from "@react-three/fiber/webgpu";
 import { folder, useControls } from "leva";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { ao } from "three/addons/tsl/display/GTAONode.js";
-import type { BloomPass } from "three/examples/jsm/Addons.js";
 import { bloom } from "three/examples/jsm/tsl/display/BloomNode.js";
 import {
   mrt,
@@ -56,8 +55,6 @@ export function PostProcessing() {
         { collapsed: true },
       ),
     });
-
-  const bloomPassRef = useRef<BloomPass | null>(null);
 
   const { rebuild } = useRenderPipeline(
     ({ renderPipeline, passes, scene, camera }) => {

@@ -2,8 +2,6 @@ import { OrbitControls } from "@react-three/drei";
 import { MathUtils } from "three";
 import { Watch } from "../Components/Watch";
 
-const base = import.meta.env.BASE_URL;
-
 export function Section2() {
   return (
     <>
