@@ -12,7 +12,7 @@ export function Section6() {
   return (
     <>
       <Suspense fallback={null}>
-        <Bounds fit observe margin={0.8}>
+        <Bounds fit observe margin={0.9}>
           <Center top position={[0, 0.2, 0]}>
             <Float speed={0.001}>
               <Watch

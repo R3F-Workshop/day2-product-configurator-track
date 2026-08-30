@@ -12,7 +12,7 @@ export function Section3() {
   return (
     <>
       <Suspense fallback={null}>
-        <Bounds fit clip observe margin={0.8}>
+        <Bounds fit clip observe margin={0.9}>
           <Center top position={[0, 0.2, 0]}>
             <Watch
               rotation={[0, MathUtils.degToRad(30), MathUtils.degToRad(30)]}
