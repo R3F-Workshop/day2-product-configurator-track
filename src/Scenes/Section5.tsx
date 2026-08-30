@@ -11,7 +11,7 @@ export function Section5() {
   return (
     <>
       <Suspense fallback={null}>
-        <Bounds fit clip observe margin={1}>
+        <Bounds fit clip observe margin={0.8}>
           <Center top position={[0, 0.2, 0]}>
             <Float speed={0.001}>
               <Watch
