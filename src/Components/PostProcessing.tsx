@@ -1,5 +1,8 @@
 import { useRenderPipeline } from "@react-three/fiber/webgpu";
+import { folder, useControls } from "leva";
+import { useEffect, useRef } from "react";
 import { ao } from "three/addons/tsl/display/GTAONode.js";
+import type { BloomPass } from "three/examples/jsm/Addons.js";
 import { bloom } from "three/examples/jsm/tsl/display/BloomNode.js";
 import {
   mrt,
@@ -13,23 +16,51 @@ import {
   vec4,
   velocity,
 } from "three/tsl";
-import * as THREE from "three/webgpu";
 
 export function PostProcessing() {
-  useRenderPipeline(
+  const { aoIntensity, aoRadius, bloomIntensity, bloomRadius, bloomThreshold } =
+    useControls({
+      Postprocessing: folder(
+        {
+          bloomIntensity: {
+            value: 0.25,
+            min: 0,
+            max: 1,
+            step: 0.01,
+          },
+          bloomRadius: {
+            value: 1,
+            min: 0,
+            max: 1,
+            step: 0.01,
+          },
+          bloomThreshold: {
+            value: 1,
+            min: 0,
+            max: 1,
+            step: 0.01,
+          },
+          aoRadius: {
+            value: 0.5,
+            min: 0,
+            max: 5,
+            step: 0.01,
+          },
+          aoIntensity: {
+            value: 1,
+            min: 0,
+            max: 5,
+            step: 0.01,
+          },
+        },
+        { collapsed: true },
+      ),
+    });
+
+  const bloomPassRef = useRef<BloomPass | null>(null);
+
+  const { rebuild } = useRenderPipeline(
     ({ renderPipeline, passes, scene, camera }) => {
-      if (!renderPipeline) {
-        return;
-      }
-
-      // Dispose any previously registered pre-pass before replacing it.
-      const previousPrePass = passes.prePass as
-        | {
-            dispose?: () => void;
-          }
-        | undefined;
-      previousPrePass?.dispose?.();
-
       const prePass = pass(scene, camera);
       prePass.name = "Pre-Pass";
       prePass.transparent = false;
@@ -45,21 +76,21 @@ export function PostProcessing() {
       });
       const prePassDepth = prePass.getTextureNode("depth");
 
-      // Store normal as 8-bit packed RGB to reduce pre-pass bandwidth.
-      const normalTexture = prePass.getTexture("output");
-      normalTexture.type = THREE.UnsignedByteType;
-
       const sceneColor = passes.scenePass.getTextureNode("output");
 
       const aoPass = ao(prePassDepth, prePassNormal, camera);
-      aoPass.radius.value = 0.5;
-      aoPass.resolutionScale = 1;
-      aoPass.useTemporalFiltering = false;
+      aoPass.radius.value = aoRadius;
+      aoPass.scale.value = aoIntensity;
 
       const aoMask = aoPass.getTextureNode().r;
       const aoOut = sceneColor.mul(vec4(vec3(aoMask), 1));
 
-      const bloomPass = bloom(sceneColor, 0.05, 1, 0.5);
+      const bloomPass = bloom(
+        sceneColor,
+        bloomIntensity,
+        bloomRadius,
+        bloomThreshold,
+      );
       renderPipeline.outputNode = aoOut.add(bloomPass);
 
       return { prePass };
@@ -72,6 +103,17 @@ export function PostProcessing() {
       );
     },
   );
+
+  useEffect(() => {
+    rebuild();
+  }, [
+    aoIntensity,
+    aoRadius,
+    bloomIntensity,
+    bloomRadius,
+    bloomThreshold,
+    rebuild,
+  ]);
 
   return null;
 }

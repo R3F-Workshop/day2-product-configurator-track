@@ -1,75 +1,60 @@
-# React + TypeScript + Vite
+# Day 2 Product Configurator Workshop
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository now maps each workshop section to its own Scene component.
 
-Currently, two official plugins are available:
+## Workshop Sections
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Each section is implemented in code:
 
-## React Compiler
+1. Section 1: `src/Scenes/Section1.tsx`
+2. Section 2: `src/Scenes/Section2.tsx`
+3. Section 3: `src/Scenes/Section3.tsx`
+4. Section 4: `src/Scenes/Section4.tsx`
+5. Section 5: `src/Scenes/Section5.tsx`
+6. Section 6: `src/Scenes/Section6.tsx`
+7. Section 7: `src/Scenes/Section7.tsx`
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Section routing is handled in:
 
-## Expanding the ESLint configuration
+- `src/Scene.tsx`
+- `src/Scenes/workshopSection.ts`
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Running A Specific Section
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Use query params in the browser URL:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- `?section=1` through `?section=7`
+- Optional inspector in section 6+: `?section=6&inspector=1`
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+You can also set an environment default:
 
+```bash
+VITE_WORKSHOP_SECTION=3 yarn dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Local Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+yarn install
+yarn dev
 ```
+
+## Build And Preview
+
+```bash
+yarn build
+yarn preview
+```
+
+## Key Tech
+
+- React + Vite + TypeScript
+- three.js (WebGPU)
+- @react-three/fiber
+- @react-three/drei
+- Zustand
+- Tailwind CSS
+
+## Deploy
+
+GitHub Pages deployment is configured in `.github/workflows/deploy.yml` and uses the Vite `base` path from `vite.config.ts`.
